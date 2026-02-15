@@ -37,13 +37,13 @@ export class TodoController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string, @Res() response: Response) {
+  delete(@Param('id') id: string, @Res({ passthrough:true }) response: Response) {
     const result = this.todoService.deleteTodo(Number(id));
 
     if (result) {
-      return response.json({
+      return {
         message: 'Todo deleted successfully',
-      });
+      };
     }
 
     return response.status(HttpStatus.BAD_REQUEST).json({
